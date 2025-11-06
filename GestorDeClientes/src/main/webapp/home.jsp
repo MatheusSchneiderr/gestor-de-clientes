@@ -7,27 +7,40 @@
 <head>
     <title>My App</title>
     <meta charset="UTF-8">
+    
+	<link 
+	  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
+	  rel="stylesheet"
+	  integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" 
+	  crossorigin="anonymous">
+	
+	<script 
+	  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
+	  integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
+	  crossorigin="anonymous">
+	</script>
+	
+	<link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"
+    />
+	
     <style>
-        body { font-family: Arial; margin: 40px; }
-        nav {
-            background: #f3f3f3; padding: 10px; text-align: right;
-            border-radius: 10px;
-        }
-        main {
-            margin: 20px 0; padding: 20px;
-            border: 1px solid #ccc; border-radius: 10px;
-        }
+        body { font-family: Arial;}
     </style>
 </head>
-<body>
-
-<div>
-	<jsp:include page="components/navbar.jsp"/> 
-</div>
-
-<main>
-    <jsp:include page="pages/${pageSafe}.jsp" />
-</main>
-
-</body>
+	<body>
+		<jsp:include page="components/navbar.jsp"/> 
+	
+		<div class="container mt-4">
+		    <jsp:include page="pages/${pageSafe}.jsp" />
+		</div>
+	
+	</body>
 </html>

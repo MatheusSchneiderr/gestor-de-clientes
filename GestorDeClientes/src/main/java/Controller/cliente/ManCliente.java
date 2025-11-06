@@ -37,7 +37,11 @@ public class ManCliente extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		String action = request.getParameter("action");
-        if ("list".equals(action)) {
+		if("view".equals(action)) {
+			request.setAttribute("cod", request.getParameter("codigo"));
+			request.setAttribute("pageSafe", "cliente/form");
+		}
+		else if ("list".equals(action)) {
             request.setAttribute("clientes", DAO.Listar());
             request.setAttribute("pageSafe", "cliente/list");
         } else {
@@ -70,7 +74,7 @@ public class ManCliente extends HttpServlet {
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
 		DAO.Deletar(id);
-	    response.sendRedirect("ManCliente?action=list");	 
+	    response.sendRedirect("ManCliente?action=list");
 	}
 	
 	protected void doPut (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
