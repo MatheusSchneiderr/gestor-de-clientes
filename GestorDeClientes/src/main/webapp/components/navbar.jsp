@@ -2,6 +2,6 @@
     pageEncoding="UTF-8"%>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
 	<div class="container-fluid">
-		<a class="navbar-brand" href="${pageContext.request.contextPath}/">Home</a>
+		<a class="navbar-brand fw-bold" href="${pageContext.request.contextPath}/">Home</a>
 	</div>
 </nav>

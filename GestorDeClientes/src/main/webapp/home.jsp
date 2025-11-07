@@ -30,7 +30,10 @@
       type="text/css"
       href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"
     />
-	
+    <link
+      rel="stylesheet"
+      href="${pageContext.request.contextPath}/styles.css"
+    />	
     <style>
         body { font-family: Arial;}
     </style>
@@ -38,7 +41,8 @@
 	<body>
 		<jsp:include page="components/navbar.jsp"/> 
 	
-		<div class="container mt-4">
+		<c:set var="pageSafe" value="${(not empty pageSafe) ? pageSafe : 'modules'}"></c:set>
+		<div class="container d-flex justify-content-center mt-4 card-container">
 		    <jsp:include page="pages/${pageSafe}.jsp" />
 		</div>
 	
