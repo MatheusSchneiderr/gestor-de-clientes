@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 
 public class AcessoDB {
     public static Connection conectar(String DB) throws Exception {
-        String url = "jdbc:mysql://localhost:3306/"+DB+"?useSSL=false&serverTimezone=UTC";
+        String url = "jdbc:mysql://localhost:3306/"+DB;
         String user = "root"; 
         String password = "0106";
         Class.forName("com.mysql.cj.jdbc.Driver");

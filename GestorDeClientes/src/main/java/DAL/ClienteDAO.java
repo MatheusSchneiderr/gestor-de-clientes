@@ -35,6 +35,33 @@ public class ClienteDAO extends Conexao{
     		FecharConexao();
 		}
     }
+    public Cliente Buscar(int codigo) {
+    	Cliente cliente = null;
+    	try {
+    		AbrirConexao();
+    		pstm = con.prepareStatement(SELECT + " WHERE CODIGO=?");
+    		pstm.setInt(1, codigo);
+    		rs = pstm.executeQuery();
+    		
+    		if(rs.next()) {
+    			cliente = new Cliente(
+    					rs.getInt("CODIGO"), 
+    					rs.getString("NOME"),
+    					rs.getString("CPF"),
+    					rs.getString("RG"),
+    					rs.getString("TELEFONE"),
+    					rs.getString("EMAIL"));
+    		}   
+			
+		} catch (Exception ex) {
+    		System.out.println("Erro buscar cliente: " + ex.getMessage());
+    		ex.getStackTrace();
+		}
+    	finally {
+    		FecharConexao();
+		}
+    	return cliente;
+    }
     public List<Cliente> Listar(){
 		List<Cliente> Clientes = new ArrayList<Cliente>();
     	try {

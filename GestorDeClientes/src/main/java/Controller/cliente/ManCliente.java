@@ -38,7 +38,8 @@ public class ManCliente extends HttpServlet {
 		
 		String action = request.getParameter("action");
 		if("view".equals(action)) {
-			request.setAttribute("cod", request.getParameter("codigo"));
+			int Codigo = Integer.parseInt(request.getParameter("cod"));
+			request.setAttribute("cliente", DAO.Buscar(Codigo));
 			request.setAttribute("pageSafe", "cliente/form");
 		}
 		else if ("list".equals(action)) {
@@ -47,6 +48,7 @@ public class ManCliente extends HttpServlet {
         } else {
             request.setAttribute("pageSafe", "cliente/form");
         }
+		
         RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
         dispatcher.forward(request, response);
 	       
@@ -58,41 +60,39 @@ public class ManCliente extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	       String nome = request.getParameter("nome");
-	       String email = request.getParameter("email");
-	       String cpf = request.getParameter("cpf");
-	       String rg = request.getParameter("rg");
-	       String telefone = request.getParameter("telefone");
-	       
-	       Cliente Cliente = new Cliente(nome, email, cpf, rg, telefone);
-	       
-	       DAO.Inserir(Cliente); 
-	       
-	       response.sendRedirect("ManCliente?action=list");	      
+		if(request.getParameter("codigo") != null && !request.getParameter("codigo").isEmpty()) {
+			doPut(request, response);
+		}
+		else {
+		    String nome = request.getParameter("nome");
+		    String email = request.getParameter("email");
+		    String cpf = request.getParameter("cpf");
+		    String rg = request.getParameter("rg");
+		    String telefone = request.getParameter("telefone");
+		    
+		    Cliente Cliente = new Cliente(nome, cpf, rg, telefone,email);
+		     
+		    DAO.Inserir(Cliente); 
+		}       
+	    response.sendRedirect("ManCliente?action=list");	      
 	}
 	
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id = Integer.parseInt(request.getParameter("id"));
-		DAO.Deletar(id);
+		int codigo = Integer.parseInt(request.getParameter("codigo"));
+		DAO.Deletar(codigo);
 	    response.sendRedirect("ManCliente?action=list");
 	}
 	
 	protected void doPut (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id = Integer.parseInt(request.getParameter("id"));
-		String nome = request.getParameter("nome");
-		
+		int codigo = Integer.parseInt(request.getParameter("codigo"));
+		String nome = request.getParameter("nome");	
 	    String email = request.getParameter("email");
 	    String cpf = request.getParameter("cpf");
 	    String rg = request.getParameter("rg");
 	    String telefone = request.getParameter("telefone");
 	    
-	    Cliente ClienteAtualizado = new Cliente(id, nome, email, cpf, rg, telefone);
+	    Cliente ClienteAtualizado = new Cliente(codigo, nome, cpf, rg, telefone, email);
 		
-	    DAO.Atualizar(ClienteAtualizado);//Era pra ser antes de atualizar a lista pra evitar ambiguidade se der bug, mas agr n vou mudar isso...	
-		
-
-	    response.sendRedirect("ManCliente?action=list");	 
-
+	    DAO.Atualizar(ClienteAtualizado);	 
 	}
-
 }

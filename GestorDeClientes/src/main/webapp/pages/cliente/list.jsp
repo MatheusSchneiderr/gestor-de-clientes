@@ -8,12 +8,12 @@
 		<div class="card p-3 w-100 mb-3">
 			<div class="d-flex justify-content-between align-items-center">
 				<div>
-					<div class="fw-bold">${c.nome}</div>
-					<div>${c.cpf}</div>
+					<div class="fw-bold">${c.getNome()}</div>
+					<div>${c.getCpf()}</div>
 				</div>
 				<jsp:include page="/components/botao.jsp">
 					<jsp:param name="texto" value="Ver"/>
-					<jsp:param name="acao" value="${pageContext.request.contextPath}/ManCliente?action=view&cod=${c.codigo}" />
+					<jsp:param name="acao" value="${pageContext.request.contextPath}/ManCliente?action=view&cod=${c.getCodigo()}" />
 					<jsp:param name="tipo" value="primary" />
 					<jsp:param name="icone" value="ph ph-magnifying-glass" />
 				</jsp:include>
