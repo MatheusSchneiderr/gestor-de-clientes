@@ -20,14 +20,17 @@
 					<div class="fw-bold">${c.getNome()}</div>
 					<div>${c.getCpf()}</div>
 				</div>
-				<jsp:include page="/components/botao.jsp">
-					<jsp:param name="texto" value="Ver"/>
-					<jsp:param name="acao" value="${pageContext.request.contextPath}/ManCliente?action=view&cod=${c.getCodigo()}" />
-					<jsp:param name="tipo" value="primary" />
-					<jsp:param name="icone" value="ph ph-magnifying-glass" />
-				</jsp:include>
+				<div>
+					<jsp:include page="/components/botao.jsp">
+						<jsp:param name="texto" value="Ver"/>
+						<jsp:param name="acao" value="${pageContext.request.contextPath}/ManCliente?action=view&cod=${c.getCodigo()}" />
+						<jsp:param name="tipo" value="primary" />
+						<jsp:param name="icone" value="ph ph-magnifying-glass" />
+					</jsp:include>
+				</div>
+				
+
 			</div>
 		</div>
     </c:forEach>
 </div>
-

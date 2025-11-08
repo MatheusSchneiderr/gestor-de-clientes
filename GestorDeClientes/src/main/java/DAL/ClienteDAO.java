@@ -28,7 +28,7 @@ public class ClienteDAO extends Conexao{
     		pstm.executeUpdate();		
 		}
     	catch (Exception ex){
-    		System.out.println("Erro ao inserir aluno: " + ex.getMessage());
+    		System.out.println("Erro ao inserir cliente: " + ex.getMessage());
     		ex.getStackTrace();
     	}
     	finally {
@@ -81,7 +81,7 @@ public class ClienteDAO extends Conexao{
     		}   		
 		}
     	catch (Exception ex){
-    		System.out.println("Erro ao inserir aluno: " + ex.getMessage());
+    		System.out.println("Erro ao inserir cliente: " + ex.getMessage());
     		ex.getStackTrace();
     	}
     	finally {
@@ -102,7 +102,7 @@ public class ClienteDAO extends Conexao{
     		pstm.executeUpdate();
 		}
     	catch (Exception ex){
-    		System.out.println("Erro ao inserir aluno: " + ex.getMessage());
+    		System.out.println("Erro ao inserir cliente: " + ex.getMessage());
     		ex.getStackTrace();
     	}
     	finally {
@@ -117,7 +117,7 @@ public class ClienteDAO extends Conexao{
     		pstm.executeUpdate();
 		}
     	catch (Exception ex){
-    		System.out.println("Erro ao inserir aluno: " + ex.getMessage());
+    		System.out.println("Erro ao inserir cliente: " + ex.getMessage());
     		ex.getStackTrace();
     	}
     	finally {

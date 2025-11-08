@@ -11,17 +11,27 @@
 %>
 <head>
 	<style>
-		button{
+		.primary{
+			color: #23272b !important;
+			border:none!important;		
+		}
+		.secondary{
 			background-color: #23272b !important;
-			border: 1px solid #212529 !important;
+			border: 1px solid #212529 !important;			
+		}
+		.exclude{
+			color: #9c0000 !important;
+			border:none!important;					
 		}
 		button:hover{
 			opacity: 70%;
 		}
-		
+		button:active{
+			opacity: 50%;	
+		}	
 	</style>
 </head>
-<button class="btn btn-<%= tipoBotao%>" onclick="window.location.href='<%= acaoBotao%>'">
+<button class="btn <%= tipoBotao%>" onclick="window.location.href='<%= acaoBotao%>'">
     <% if (icone != null && !icone.isEmpty()) { %>
     	<i class="<%= icone%> fw-bold"></i>
     <% } %>

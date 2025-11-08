@@ -1,4 +1,4 @@
-package Controller.cliente;
+package Controller;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -8,27 +8,28 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import DAL.ClienteDAO;
-import Model.Cliente;
+import DAL.ProdutoDAO;
+import Model.Produto;
 
 /**
- * Servlet implementation class ManCliente
+ * Servlet implementation class ManProduto
  */
-@WebServlet("/ManCliente")
-public class ManCliente extends HttpServlet {
+@WebServlet("/ManProduto")
+public class ManProduto extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ClienteDAO DAO;
        
+	private ProdutoDAO DAO;
+    
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ManCliente() {
+    public ManProduto() {
         super();
         // TODO Auto-generated constructor stub
     }
     
     public void init() {
-  	   DAO = new ClienteDAO("ClientesJDBC");
+  	   DAO = new ProdutoDAO("ClientesJDBC");
     }
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -39,14 +40,14 @@ public class ManCliente extends HttpServlet {
 		String action = request.getParameter("action");
 		if("view".equals(action)) {
 			int Codigo = Integer.parseInt(request.getParameter("cod"));
-			request.setAttribute("cliente", DAO.Buscar(Codigo));
-			request.setAttribute("pageSafe", "cliente/form");
+			request.setAttribute("produto", DAO.Buscar(Codigo));
+			request.setAttribute("pageSafe", "produto/form");
 		}
 		else if ("list".equals(action)) {
-            request.setAttribute("clientes", DAO.Listar());
-            request.setAttribute("pageSafe", "cliente/list");
+            request.setAttribute("produtos", DAO.Listar());
+            request.setAttribute("pageSafe", "produto/list");
         } else {
-            request.setAttribute("pageSafe", "cliente/form");
+            request.setAttribute("pageSafe", "produto/form");
         }
 		
         RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
@@ -61,38 +62,39 @@ public class ManCliente extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		if(request.getParameter("codigo") != null && !request.getParameter("codigo").isEmpty()) {
-			doPut(request, response);
+			String action = request.getParameter("action");
+			if("delete".equals(action)) {
+				doDelete(request, response);
+			}
+			else {				
+				doPut(request, response);
+			}
 		}
 		else {
 		    String nome = request.getParameter("nome");
-		    String email = request.getParameter("email");
-		    String cpf = request.getParameter("cpf");
-		    String rg = request.getParameter("rg");
-		    String telefone = request.getParameter("telefone");
+		    Double preco = Double.parseDouble(request.getParameter("preco"));
 		    
-		    Cliente Cliente = new Cliente(nome, cpf, rg, telefone,email);
+		    Produto Produto = new Produto(nome, preco);
 		     
-		    DAO.Inserir(Cliente); 
+		    DAO.Inserir(Produto); 
 		}       
-	    response.sendRedirect("ManCliente?action=list");	      
+	    response.sendRedirect("ManProduto?action=list");	      
 	}
 	
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int codigo = Integer.parseInt(request.getParameter("codigo"));
 		DAO.Deletar(codigo);
-	    response.sendRedirect("ManCliente?action=list");
 	}
 	
 	protected void doPut (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int codigo = Integer.parseInt(request.getParameter("codigo"));
 		String nome = request.getParameter("nome");	
-	    String email = request.getParameter("email");
-	    String cpf = request.getParameter("cpf");
-	    String rg = request.getParameter("rg");
-	    String telefone = request.getParameter("telefone");
+	    Double preco = Double.parseDouble(request.getParameter("preco"));
 	    
-	    Cliente ClienteAtualizado = new Cliente(codigo, nome, cpf, rg, telefone, email);
+	    
+	    Produto ProdutoAtualizado = new Produto(codigo, nome, preco);
 		
-	    DAO.Atualizar(ClienteAtualizado);	 
+	    DAO.Atualizar(ProdutoAtualizado);	 
 	}
+
 }
