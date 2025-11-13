@@ -80,7 +80,7 @@ public class ManCliente extends HttpServlet {
 		     
 		    DAO.Inserir(Cliente); 
 		}       
-	    response.sendRedirect("ManCliente?action=list");	      
+	    response.sendRedirect("ManCliente?action=list");
 	}
 	
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
