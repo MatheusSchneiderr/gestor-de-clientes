@@ -3,13 +3,11 @@
 <hr>
 <b>Informações sobre o projeto</b>
 <br>
+dynamic web module : 5.0
 versão do Java : 17 oracle<br>
 Server : Tomcat 10.0.27<br>
-Banco de dados MySql
+Banco de dados : MySql
 <br><br>
 
 recomendado utilizar Eclipse IDE para o projeto já que fiz ele na IDE (subi o .project
 e .settings para facilitar a importação pro eclipse)
-
-
-<b>Boa sorte se for tentar com vscode (eu nunca testei)</b>
