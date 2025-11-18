@@ -49,7 +49,7 @@ public class ConProduto extends HttpServlet {
 		Gson gson = new Gson();
 		
 		String json = gson.toJson(produto);
-		
+			
 		response.setContentType("application/json");
 		response.getWriter().write(json);
 	}

@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
 		.then(data => {
 
 			const valor = parseFloat(data.preco);
-		    //console.log("Retorno:", data);
 
 		    // se vier null, trata
 		    if (data == null) {
@@ -40,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 		})
 	    .catch(err => {
-			//console.log(err);
+			console.log(err);
 			document.getElementById("btnAddProduto").disabled = true;
 			document.getElementById("qtdProdutoBox").value = "";
 			document.getElementById("descProdutoBox").value = "Nenhum produto encontrado";

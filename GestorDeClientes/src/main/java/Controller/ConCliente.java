@@ -11,7 +11,6 @@ import com.google.gson.Gson;
 
 import DAL.ClienteDAO;
 import Model.Cliente;
-import Model.Produto;
 
 /**
  * Servlet implementation class ConCliente
