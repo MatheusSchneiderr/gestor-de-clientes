@@ -13,6 +13,12 @@ public class Venda {
 		super();
 		this.idCliente = idCliente;
 		this.produtos = produtos;
+	}
+	public Venda(int idVenda, int idCliente, List<ItemVenda> produtos) {
+		super();
+		this.idVenda = idVenda;
+		this.idCliente = idCliente;
+		this.produtos = produtos;
 	}	
 	public Venda(int idVenda, int idCliente, LocalDate dataVenda) {
 		super();
@@ -43,5 +49,22 @@ public class Venda {
 	}
 	public void setDataVenda(LocalDate dataVenda) {
 		this.dataVenda = dataVenda;
+	}
+	
+	public String getNomeCliente(List<Cliente> clientes) {
+	    return clientes.stream()
+	        .filter(c -> c.getCodigo() == this.getIdCliente())
+	        .map(Cliente::getNome)
+	        .findAny()
+	        .orElse("Desconhecido");
+	}
+	
+	public double getValorTotal() {
+		double tot = 0.00;
+		for(ItemVenda i : this.getProdutos()) {
+			String val = i.getValorUn().toString();
+			tot += Double.valueOf(val) * i.getQuantidade();
+		}
+		return tot;
 	}
 }

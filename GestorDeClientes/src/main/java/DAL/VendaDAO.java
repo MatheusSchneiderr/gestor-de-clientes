@@ -1,6 +1,7 @@
 package DAL;
 
 import java.sql.Date;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,18 +18,23 @@ public class VendaDAO extends Conexao{
     private final String SELECT = "select * from VENDAS";
     private final String SELECT_ITENS = "select * from ITEM_VENDA WHERE ID_VENDA=?";
     private final String INSERT=" INSERT INTO VENDAS (ID_CLIENTE, DT_VENDA) VALUES (?,?) ";
-    private final String INSERT_ITENS=" INSERT INTO ITEM_VENDA (ID_VENDA, CD_PRODUTO, QUANTIDADE) VALUES (?,?,?) ";
+    private final String INSERT_ITENS=" INSERT INTO ITEM_VENDA (ID_VENDA, ID_PRODUTO, QUANTIDADE, VALOR_UN) VALUES (?,?,?,?) ";
     private final String UPDATE=" UPDATE VENDAS SET ID_CLIENTE=? WHERE ID_VENDA=?";
-    private final String DELETE=" DELETE FROM VENDAS WHERE CODIGO=? ";
-    private final String DELETE_ITENS=" DELETE FROM ITEM_VENDA WHERE ID_VENDA=? ";
+    private final String DELETE=" DELETE FROM VENDAS WHERE ID_VENDA=? ";
+    private final String DELETE_ITENS="DELETE FROM ITEM_VENDA WHERE ID_VENDA=? ";
     
     public void Inserir(Venda venda) {
     	try {
     		AbrirConexao();
-    		pstm = con.prepareStatement(INSERT);
+    		pstm = con.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
     		pstm.setInt(1, venda.getIdCliente());
     		pstm.setDate(2, Date.valueOf(LocalDate.now()));
-    		pstm.executeUpdate();		
+    		pstm.executeUpdate();
+    		
+    		rs = pstm.getGeneratedKeys();
+    		if (rs.next()) {
+    			venda.setIdVenda(rs.getInt(1));
+    		}
 		}
     	catch (Exception ex){
     		System.out.println("Erro ao inserir venda: " + ex.getMessage());
@@ -36,6 +42,7 @@ public class VendaDAO extends Conexao{
     	}
     	finally {
     		FecharConexao();
+    		InserirItens(venda);
 		}
     }
     
@@ -50,6 +57,7 @@ public class VendaDAO extends Conexao{
     		pstm.setInt(1, idVenda);
     		pstm.setInt(2, i.idProduto);
     		pstm.setInt(3, i.quantidade);
+    		pstm.setBigDecimal(4, i.valorUn);
     		
     		pstm.executeUpdate();
 		}
@@ -65,7 +73,7 @@ public class VendaDAO extends Conexao{
     	Venda venda = null;
     	try {
     		AbrirConexao();
-    		pstm = con.prepareStatement(SELECT + " WHERE CODIGO=?");
+    		pstm = con.prepareStatement(SELECT + " WHERE ID_VENDA=?");
     		pstm.setInt(1, codigo);
     		rs = pstm.executeQuery();
     		
@@ -117,8 +125,8 @@ public class VendaDAO extends Conexao{
     	try {
     		AbrirConexao();
     		pstm = con.prepareStatement(UPDATE);
-    		pstm.setInt(1, venda.getIdVenda());
-    		pstm.setInt(2, venda.getIdCliente());
+    		pstm.setInt(1, venda.getIdCliente());
+    		pstm.setInt(2, venda.getIdVenda());
     		pstm.executeUpdate();
 		}
     	catch (Exception ex){
@@ -176,7 +184,8 @@ public class VendaDAO extends Conexao{
     			ItemVenda p = new ItemVenda(
     					rs.getInt("ID_VENDA"), 
     					rs.getInt("ID_PRODUTO"),
-    					rs.getInt("QUANTIDADE"));
+    					rs.getInt("QUANTIDADE"),
+    					rs.getBigDecimal("VALOR_UN"));
     			Produtos.add(p);
     		}   		
 		}
