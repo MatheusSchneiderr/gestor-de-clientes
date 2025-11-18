@@ -3,7 +3,7 @@
 <hr>
 <b>Informações sobre o projeto</b>
 <br>
-dynamic web module : 5.0
+dynamic web module : 5.0<br>
 versão do Java : 17 oracle<br>
 Server : Tomcat 10.0.27<br>
 Banco de dados : MySql
