@@ -36,7 +36,6 @@
 </head>
 	<body>
 		<jsp:include page="components/navbar.jsp"/> 
-	'
 		<c:set var="pageSafe" value="${(not empty pageSafe) ? pageSafe : 'modules'}"></c:set>
 		<div class="container d-flex justify-content-center mt-4 card-container">
 		    <jsp:include page="pages/${pageSafe}.jsp" />
