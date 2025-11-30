@@ -106,25 +106,33 @@
 				<div class="d-flex flex-column mb-3" id="produtosContainer">
 					<c:if test="${isEdit}">
 						<c:forEach var="i" items="${venda.getProdutos()}">
-							<div class="produtoItem">
-								<div class="d-flex justify-content-start gap-3">
-									<div class="">
-									    <label for="name" class="form-label fw-semibold">Código Produto:</label><br>
-									    <input value="${i.getIdProduto()}" maxlength="255" class="form-control idProduto" type="number" required>								
-									</div>
-									<div class="">
-									    <label for="name" class="form-label fw-semibold">Quantidade:</label><br>
-									    <input value="${i.getQuantidade()}" maxlength="255" class="form-control quantidade" type="number" required>						    						
-									</div>
-									<div class="">
-									    <label for="name" class="form-label fw-semibold">Preço:</label><br>
-									    <input value="${i.getValorUn()}" maxlength="255" class="form-control valor" type="number" max="99999999.99" min="0" step="0.01" required disabled>						    						
-									</div>									
-									<div class="d-flex align-items-end">
-										<button class="btn btn-danger fw-bold" type="button" onclick="removeProduto(this)">X</button>
-									</div>				
-								</div>
-							</div>
+							<c:forEach var="p" items="${produtos}">
+								<c:if test="${p.getCodigo() == i.getIdProduto()}">
+									<div class="produtoItem">
+										<div class="d-flex justify-content-start gap-3">
+											<div class="">
+											    <label for="name" class="form-label fw-semibold">Código Produto:</label><br>
+											    <input value="${i.getIdProduto()}" maxlength="255" class="form-control idProduto" type="number" disabled required>								
+											</div>
+											<div class="">
+												<label for="name" class="form-label fw-semibold">Nome Produto:</label><br>
+												<input value="${p.getNome()}" maxlength="255" class="form-control nomeProduto" type="text" disabled required>								
+											</div>	
+											<div class="">
+											    <label for="name" class="form-label fw-semibold">Quantidade:</label><br>
+											    <input value="${i.getQuantidade()}" maxlength="255" class="form-control quantidade" min="1" type="number" required>						    						
+											</div>
+											<div class="">
+											    <label for="name" class="form-label fw-semibold">Preço:</label><br>
+											    <input value="${i.getValorUn()}" maxlength="255" class="form-control valor" type="number" max="99999999.99" min="0" step="0.01" required disabled>						    						
+											</div>									
+											<div class="d-flex align-items-end">
+												<button class="btn btn-danger fw-bold" type="button" onclick="removeProduto(this)">X</button>
+											</div>				
+										</div>
+									</div>															
+								</c:if>
+							</c:forEach>
 						</c:forEach>
 					</c:if>
 				</div>

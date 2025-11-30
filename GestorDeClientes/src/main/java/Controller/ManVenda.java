@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import DAL.ClienteDAO;
+import DAL.ProdutoDAO;
 import DAL.VendaDAO;
 import Model.ItemVenda;
 import Model.Venda;
@@ -26,6 +27,7 @@ public class ManVenda extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	private VendaDAO DAO;
+	private ProdutoDAO PDAO;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -36,6 +38,7 @@ public class ManVenda extends HttpServlet {
     
     public void init() {
    	   DAO = new VendaDAO("ClientesJDBC");
+   	   PDAO = new ProdutoDAO("ClientesJDBC");
      }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -45,6 +48,7 @@ public class ManVenda extends HttpServlet {
 		if("view".equals(action)) {
 			int Codigo = Integer.parseInt(request.getParameter("cod"));
 			request.setAttribute("venda", DAO.Buscar(Codigo));
+			request.setAttribute("produtos", PDAO.Listar());
 			request.setAttribute("pageSafe", "venda/form");
 		}
 		else if ("list".equals(action)) {

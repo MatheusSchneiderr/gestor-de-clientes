@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {	
 	const box = document.getElementById("queryBox");
 	const descProdutoBox = document.getElementById("descProdutoBox");
 	const valorBox = document.getElementById("valorProdutoBox");
@@ -39,7 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 		})
 	    .catch(err => {
-			console.log(err);
 			document.getElementById("btnAddProduto").disabled = true;
 			document.getElementById("qtdProdutoBox").value = "";
 			document.getElementById("descProdutoBox").value = "Nenhum produto encontrado";
